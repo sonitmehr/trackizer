@@ -71,14 +71,15 @@ class _HomeViewState extends State<HomeView> {
                     alignment: Alignment.topCenter,
                     children: [
                       Container(
-                        padding:  EdgeInsets.only(bottom: media.width * 0.05),
+                        padding: EdgeInsets.only(bottom: media.width * 0.05),
                         width: media.width * 0.72,
                         height: media.width * 0.72,
                         child: CustomPaint(
-                          painter: CustomArcPainter(end: 220, ),
+                          painter: CustomArcPainter(
+                            end: 270,
+                          ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Row(
@@ -109,7 +110,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       Image.asset("assets/img/app_logo.png",
                           width: media.width * 0.25, fit: BoxFit.contain),
-                       SizedBox(
+                      SizedBox(
                         height: media.width * 0.07,
                       ),
                       Text(
@@ -245,8 +246,11 @@ class _HomeViewState extends State<HomeView> {
                     return SubScriptionHomeRow(
                       sObj: sObj,
                       onPressed: () {
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionInfoView( sObj: sObj ) ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SubscriptionInfoView(sObj: sObj)));
                       },
                     );
                   }),

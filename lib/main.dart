@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:trackizer/common/color_extension.dart';
 import 'package:trackizer/view/login/welcome_view.dart';
 import 'package:trackizer/view/main_tab/main_tab_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Corrected method name here
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key})
+      : super(key: key); // Corrected syntax for the constructor
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
