@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trackizer/view/add_subscription/add_subscription_view.dart';
+import 'package:trackizer/view/chat/chat_screen.dart';
 
 import '../../common/color_extension.dart';
 import '../calender/calender_view.dart';
@@ -124,7 +125,12 @@ class _MainTabViewState extends State<MainTabView> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddSubScriptionView()) );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChatScreen()));
+                        // builder: (context) =>
+                        //     const AddSubScriptionView()));
                       },
                       child: Container(
                         margin: const EdgeInsets.all(20),

@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 
 class TColor {
+  static Color hexToColor(String hexColor) {
+    // Remove the '#' symbol if present
+    hexColor = hexColor.replaceAll("#", "");
+
+    // Parse the hexadecimal string to an integer
+    int colorValue = int.parse(hexColor, radix: 16);
+
+    // Create a Color object using the parsed value
+    return Color(colorValue | 0xFF000000);
+  }
+
   static Color get primary => const Color(0xff5E00F5);
-  static Color get primary500 => const Color(0xff7722FF );
+  static Color get primary500 => const Color(0xff7722FF);
   static Color get primary20 => const Color(0xff924EFF);
   static Color get primary10 => const Color(0xffAD7BFF);
   static Color get primary5 => const Color(0xffC9A7FF);
@@ -28,6 +39,13 @@ class TColor {
   static Color get border => const Color(0xffCFCFFC);
   static Color get primaryText => Colors.white;
   static Color get secondaryText => gray60;
-  
+
   static Color get white => Colors.white;
+
+  static Color get chatSend => hexToColor("AEC0E9");
+  static Color get chatRecieve => hexToColor("8A8ADD");
+}
+
+class Constants {
+  static String get currencySymbol => "₹";
 }
