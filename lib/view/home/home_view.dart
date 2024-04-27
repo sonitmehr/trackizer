@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trackizer/common/color_extension.dart';
+import 'package:trackizer/models/user_model.dart';
+import 'package:trackizer/provider/user_provider.dart';
 
 import '../../common_widget/custom_arc_painter.dart';
 import '../../common_widget/segment_button.dart';
@@ -18,39 +21,85 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   bool isSubscription = true;
+
   List subArr = [
-    {"name": "Spotify", "icon": "assets/img/spotify_logo.png", "price": "5.99"},
     {
-      "name": "YouTube Premium",
-      "icon": "assets/img/youtube_logo.png",
-      "price": "18.99"
+      "name": "Salary",
+      "icon": "assets/img/income.png",
+      "price": "${Constants.currencySymbol}1,00,00"
     },
     {
-      "name": "Microsoft OneDrive",
-      "icon": "assets/img/onedrive_logo.png",
-      "price": "29.99"
+      "name": "Rent",
+      "icon": "assets/img/expense.png",
+      "price": "${Constants.currencySymbol}25,000"
     },
-    {"name": "NetFlix", "icon": "assets/img/netflix_logo.png", "price": "15.00"}
+    {
+      "name": "Taxi",
+      "icon": "assets/img/expense.png",
+      "price": "${Constants.currencySymbol}500"
+    },
+    {
+      "name": "Movie",
+      "icon": "assets/img/expense.png",
+      "price": "${Constants.currencySymbol}1,000"
+    },
+    {
+      "name": "Food",
+      "icon": "assets/img/expense.png",
+      "price": "${Constants.currencySymbol}3,000"
+    },
+    {
+      "name": "Zomato Shares",
+      "icon": "assets/img/investment.png",
+      "price": "${Constants.currencySymbol}5,000"
+    },
+    {
+      "name": "Savings",
+      "icon": "assets/img/investment.png",
+      "price": "${Constants.currencySymbol}59,000"
+    },
   ];
 
   List bilArr = [
-    {"name": "Spotify", "date": DateTime(2023, 07, 25), "price": "5.99"},
     {
-      "name": "YouTube Premium",
-      "date": DateTime(2023, 07, 25),
-      "price": "18.99"
+      "name": "Spotify Monthly Subscription",
+      "date": DateTime(2024, 05, 4),
+      "price": "${Constants.currencySymbol}129"
     },
     {
-      "name": "Microsoft OneDrive",
-      "date": DateTime(2023, 07, 25),
-      "price": "29.99"
+      "name": "CAR EMI",
+      "date": DateTime(2024, 05, 4),
+      "price": "${Constants.currencySymbol}15,000"
     },
-    {"name": "NetFlix", "date": DateTime(2023, 07, 25), "price": "15.00"}
+    {
+      "name": "Rent",
+      "date": DateTime(2024, 05, 4),
+      "price": "${Constants.currencySymbol}25,000"
+    },
   ];
+  addData() async {
+    UserProvider _userProvider = Provider.of(context, listen: false);
+    _userProvider.refreshUser();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    addData();
+  }
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
+    UserModel user = Provider.of<UserProvider>(context).getUser;
+    double remainingBudget = user.totalBudget - user.budgetUsed;
+    String budgetStatus =
+        (user.totalBudget > user.budgetUsed) ? "On Track" : "Exceeded";
+    int budgetUsed = 0;
+    if (user.totalBudget > 0) {
+      budgetUsed = ((user.budgetUsed / user.totalBudget) * 100).ceil();
+    }
     return Scaffold(
       backgroundColor: TColor.gray,
       body: Column(
@@ -75,7 +124,7 @@ class _HomeViewState extends State<HomeView> {
                       height: media.width * 0.72,
                       child: CustomPaint(
                         painter: CustomArcPainter(
-                          end: 270,
+                          end: 162,
                         ),
                       ),
                     ),
@@ -111,7 +160,7 @@ class _HomeViewState extends State<HomeView> {
                       height: media.width * 0.07,
                     ),
                     Text(
-                      "\$1,235",
+                      "${Constants.currencySymbol}$remainingBudget",
                       style: TextStyle(
                           color: TColor.white,
                           fontSize: 40,
@@ -121,7 +170,7 @@ class _HomeViewState extends State<HomeView> {
                       height: media.width * 0.055,
                     ),
                     Text(
-                      "This month bills",
+                      "",
                       style: TextStyle(
                           color: TColor.gray40,
                           fontSize: 12,
@@ -161,8 +210,8 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           Expanded(
                             child: StatusButton(
-                              title: "Active subs",
-                              value: "12",
+                              title: "Budget Used",
+                              value: "$budgetUsed%",
                               statusColor: TColor.secondary,
                               onPressed: () {},
                             ),
@@ -172,8 +221,8 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           Expanded(
                             child: StatusButton(
-                              title: "Highest subs",
-                              value: "\$19.99",
+                              title: "Budget Status",
+                              value: budgetStatus,
                               statusColor: TColor.primary10,
                               onPressed: () {},
                             ),
@@ -183,8 +232,8 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           Expanded(
                             child: StatusButton(
-                              title: "Lowest subs",
-                              value: "\$5.99",
+                              title: "Next bill in",
+                              value: "${user.nextDue} days",
                               statusColor: TColor.secondaryG,
                               onPressed: () {},
                             ),
@@ -207,7 +256,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Expanded(
                   child: SegmentButton(
-                    title: "Your subscription",
+                    title: "Your transactions",
                     isActive: isSubscription,
                     onPressed: () {
                       setState(() {
@@ -260,9 +309,9 @@ class _HomeViewState extends State<HomeView> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: subArr.length,
+                  itemCount: bilArr.length,
                   itemBuilder: (context, index) {
-                    var sObj = subArr[index] as Map? ?? {};
+                    var sObj = bilArr[index] as Map? ?? {};
 
                     return UpcomingBillRow(
                       sObj: sObj,

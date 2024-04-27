@@ -19,7 +19,7 @@ class ChatSentCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
           child: const Text(
-            'Hello',
+            'Rent 25000',
             textAlign: TextAlign.left,
           ),
         ),

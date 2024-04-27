@@ -24,7 +24,10 @@ class ChatRecieveCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Coffee 12'),
+                  child: Text(
+                    'Rent 25000',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               Padding(
@@ -32,8 +35,8 @@ class ChatRecieveCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('21 March 2024'),
-                    Text("${Constants.currencySymbol} 20"),
+                    Text('18 April 2024'),
+                    Text("${Constants.currencySymbol} 25000"),
                   ],
                 ),
               ),
@@ -43,6 +46,7 @@ class ChatRecieveCard extends StatelessWidget {
                   color: Colors.black,
                   strokeWidth: 1,
                   dashPattern: [5, 5],
+                  borderType: BorderType.RRect,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
@@ -58,10 +62,10 @@ class ChatRecieveCard extends StatelessWidget {
                                 width: 30,
                                 height: 25,
                                 child: Image.asset("assets/img/expense.png")),
-                            Text('Expense'),
+                            const Text('Expense'),
                           ],
                         ),
-                        Text('Food/Drinks'),
+                        const Text('Housing'),
                       ],
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../common/color_extension.dart';
 
@@ -44,7 +45,14 @@ class RoundTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(15)),
           child: TextField(
             controller: controller,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              suffixIcon: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                ),
+              ),
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               enabledBorder: InputBorder.none,

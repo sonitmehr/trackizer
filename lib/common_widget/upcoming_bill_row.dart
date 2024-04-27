@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../common/color_extension.dart';
 
@@ -11,6 +12,7 @@ class UpcomingBillRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String monthName = DateFormat('MMMM').format(sObj['date']);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: InkWell(
@@ -40,18 +42,17 @@ class UpcomingBillRow extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Jun",
+                      sObj['date'].day.toString(),
                       style: TextStyle(
                           color: TColor.gray30,
-                          fontSize: 10,
+                          fontSize: 11,
                           fontWeight: FontWeight.w500),
                     ),
-
                     Text(
-                      "25",
+                      monthName,
                       style: TextStyle(
                           color: TColor.gray30,
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.w500),
                     )
                   ],
@@ -73,7 +74,7 @@ class UpcomingBillRow extends StatelessWidget {
                 width: 8,
               ),
               Text(
-                "\$${sObj["price"]}",
+                "${sObj["price"]}",
                 style: TextStyle(
                     color: TColor.white,
                     fontSize: 14,

@@ -1,6 +1,6 @@
 class BillModel {
   String createdAt;
-  double amount;
+  int amount;
   String dueDate;
   String userID;
 
